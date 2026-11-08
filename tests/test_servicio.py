@@ -1,4 +1,5 @@
 import pytest
+from PIL import Image
 from comun.modelos import Resultado
 from transcriptor import servicio
 from transcriptor.motores.base import MotorHTR
@@ -34,7 +35,7 @@ def motores(monkeypatch):
 @pytest.fixture
 def imagen(tmp_path):
     ruta = tmp_path / "prueba.png"
-    ruta.write_bytes(b"")
+    Image.new("RGB", (10, 10), "white").save(ruta)
     return ruta
 
 

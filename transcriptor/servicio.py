@@ -1,6 +1,9 @@
 from pathlib import Path
 from comun.modelos import Resultado
 from transcriptor.motores import MOTORES
+import tempfile
+from PIL import Image
+from transcriptor.preprocesamiento import limpiar
 
 
 def motores_disponibles():
@@ -11,7 +14,7 @@ def motores_disponibles():
     return estado
 
 
-def reconocer(ruta: Path, nombre_motor: str) -> Resultado:
+def reconocer(ruta: Path, nombre_motor: str, limpiar_imagen: bool = True) -> Resultado:
     if nombre_motor not in MOTORES:
         raise ValueError(f"motor desconocido: {nombre_motor}")
     ruta = Path(ruta)
@@ -21,4 +24,10 @@ def reconocer(ruta: Path, nombre_motor: str) -> Resultado:
     listo, motivo = motor.disponible()
     if not listo:
         raise RuntimeError(f"{nombre_motor} no disponible: {motivo}")
-    return motor.reconocer(ruta)
+    if not limpiar_imagen:
+        return motor.reconocer(ruta)
+    #imagen limpia
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as carpeta:
+        limpia = Path(carpeta) / "limpia.png"
+        limpiar(Image.open(ruta)).save(limpia)
+        return motor.reconocer(limpia)
