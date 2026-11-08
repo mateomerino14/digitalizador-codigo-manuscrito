@@ -50,3 +50,19 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Observaciones:** Con las imágenes limpias, Tesseract conserva la estructura del código pero confunde caracteres parecidos (0 y O, i e I) y palabras reservadas (range como mange, print como priot). La posición horizontal de las líneas indentadas es claramente mayor (145 frente a 50 en Python, 294 frente a 100 en Java), lo que permitirá reconstruir la indentación. En Java se pierden más símbolos, como los punto y coma y la llave de cierre.
 - **Commits:** Ninguno, prueba manual.
 - **Pendiente:** Registro de motores, servicio del transcriptor y preprocesamiento de las imágenes.
+
+## 07/11/2026: Análisis de requerimientos
+
+- **Actividad del cronograma:** Etapa de análisis del ciclo en cascada, previa al diseño de la arquitectura del Objetivo 3.
+- **Qué se hizo:** Se identificaron 12 requerimientos funcionales y 7 no funcionales del prototipo (sección 3.2 del Capítulo 3).
+- **Decisiones:** Los requerimientos se redactaron según la norma ISO/IEC/IEEE 29148 y los no funcionales se clasificaron según las características de calidad de la norma ISO/IEC 25010.
+- **Commits:** Ninguno, actividad documental.
+- **Pendiente:** Registro de motores y servicio del transcriptor.
+
+## 07/11/2026: Registro de motores y servicio del transcriptor
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026), como preparación para ejecutar todas las herramientas desde un mismo punto.
+- **Qué se hizo:** Se creó un registro con los motores HTR disponibles y un servicio que recibe una imagen y el nombre del motor, revisa que ambos sean válidos y devuelve el resultado del reconocimiento.
+- **Decisiones:** Se aplicó el patrón Fachada para que la interfaz y el script de la prueba piloto usen un solo punto de entrada, sin depender de cada motor. Para agregar una herramienta nueva solo se registra su clase. Las pruebas usan motores simulados para no depender de las herramientas instaladas.
+- **Commits:** `feat: agrega registro de motores HTR`, `feat: agrega servicio del transcriptor`, `test: agrega pruebas del servicio del transcriptor`
+- **Pendiente:** Preprocesamiento de las imágenes para eliminar la cuadrícula.
