@@ -75,3 +75,12 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Observaciones:** Con las fotos originales en papel cuadriculado, la limpieza automática produjo el mismo resultado que la limpieza manual, con las mismas posiciones de línea. En Python, la palabra range fue reconocida correctamente, aunque el cero se reconoció como © y la i como ji.
 - **Commits:** `feat: agrega preprocesamiento para eliminar la cuadricula`, `test: agrega pruebas del preprocesamiento`, `feat: aplica el preprocesamiento en el servicio del transcriptor`, `feat: permite elegir el motor y guardar la imagen limpia en el script de prueba`
 - **Pendiente:** Métricas CER y WER para la prueba piloto.
+
+## 08/11/2026: Métricas CER y WER
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026), como preparación para comparar las herramientas.
+- **Qué se hizo:** Se implementó la distancia de Levenshtein y, a partir de ella, la tasa de error de caracteres (CER) y la tasa de error de palabras (WER), según las fórmulas del Capítulo 2.
+- **Decisiones:** La distancia recibe secuencias, por lo que la misma función compara caracteres para el CER y palabras para el WER. Se ubicó en el componente evaluador para reutilizarla en el Objetivo 5. Si la referencia está vacía se lanza un error, para no dividir entre cero.
+- **Observaciones:** Con la imagen de Python sin cuadrícula se obtuvo un CER de 0.26 y un WER de 0.91. El WER es mucho mayor porque una palabra cuenta como error aunque tenga un solo carácter distinto.
+- **Commits:** `feat: agrega calculo de distancia de Levenshtein, CER y WER`, `test: agrega pruebas de las metricas`
+- **Pendiente:** Motor PaddleOCR.
