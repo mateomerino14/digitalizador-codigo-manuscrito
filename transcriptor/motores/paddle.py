@@ -17,8 +17,9 @@ class MotorPaddle(MotorHTR):
         return True, ""
 
     def reconocer(self, ruta: Path) -> Resultado:
+        modelo = self._modelo()
         inicio = time.perf_counter()
-        datos = self._modelo().predict(str(ruta))[0]
+        datos = modelo.predict(str(ruta))[0]
         cajas = []
         for texto, caja, confianza in zip(datos["rec_texts"], datos["rec_boxes"], datos["rec_scores"]):
             cajas.append({"texto": texto, "x": int(caja[0]), "arriba": int(caja[1]), "abajo": int(caja[3]), "confianza": float(confianza) * 100})
