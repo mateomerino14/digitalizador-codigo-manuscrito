@@ -2,14 +2,6 @@
 
 Registro del avance del prototipo, relacionado con las actividades del cronograma del perfil (Tabla 1).
 
-## 07/11/2026: Estructura inicial del proyecto
-
-- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026), como preparación de la estructura común para comparar las herramientas.
-- **Qué se hizo:** Se creó el repositorio y se organizó el proyecto en carpetas según los componentes transcriptor, corrector y evaluador, más la interfaz.
-- **Decisiones:** Las credenciales de los servicios en la nube y las imágenes de los estudiantes se excluyen del repositorio por seguridad y privacidad.
-- **Commits:** `chore: estructura inicial del proyecto`, `docs: agrega bitacora de desarrollo`
-- **Pendiente:** Modelos de datos y contrato base de los motores HTR.
-
 ## 07/11/2026: Revisión de la documentación de las herramientas HTR
 
 - **Actividad del cronograma:** Objetivo 2, actividad 1, "Revisión de la documentación de las herramientas HTR candidatas" (planificada del 25/10/2026 al 31/10/2026).
@@ -18,6 +10,13 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Commits:** Ninguno, actividad documental.
 - **Pendiente:** Preparar la estructura del proyecto para la prueba piloto.
 
+## 07/11/2026: Estructura inicial del proyecto
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026), como preparación de la estructura común para comparar las herramientas.
+- **Qué se hizo:** Se creó el repositorio y se organizó el proyecto en carpetas según los componentes transcriptor, corrector y evaluador, más la interfaz.
+- **Decisiones:** Las credenciales de los servicios en la nube y las imágenes de los estudiantes se excluyen del repositorio por seguridad y privacidad.
+- **Commits:** `chore: estructura inicial del proyecto`, `docs: agrega bitacora de desarrollo`, `docs: completa readme, variables de desarrollo necesarias y bitacora`
+- **Pendiente:** Modelos de datos y contrato base de los motores HTR.
 
 ## 07/11/2026: Modelos de datos y contrato de los motores
 
@@ -32,8 +31,8 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
 - **Qué se hizo:** Se integró Tesseract como primer motor, que reconoce una imagen y agrupa las palabras en líneas con su posición y su confianza.
 - **Decisiones:** Tesseract se usa como línea base de la prueba piloto. Se guarda la posición horizontal de cada línea, ya que en las primeras pruebas el texto reconocido pierde la indentación del código.
-- **Commits:** `feat: agrega motor Tesseract como linea base`, `test: agrega prueba de agrupacion de lineas de Tesseract`
-- **Pendiente:** Registro de motores y servicio del transcriptor.
+- **Commits:** `feat: agrega motor Tesseract como linea base`, `test: agrega prueba de agrupacion de lineas de Tesseract`, `fix: quitar impresion de depuracion del motor tesseract`
+- **Pendiente:** Script para probar el reconocimiento de una imagen.
 
 ## 07/11/2026: Script de prueba
 
