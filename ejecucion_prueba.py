@@ -1,13 +1,25 @@
 import sys
 from pathlib import Path
-
-from transcriptor.motores.tesseract import MotorTesseract
+from PIL import Image
+from transcriptor import servicio
+from transcriptor.preprocesamiento import limpiar
 
 
 def elegir_imagen():
     if len(sys.argv) > 1:
         return Path(sys.argv[1])
     return Path("datos/ja-p1.jpg")
+
+def elegir_motor():
+    if len(sys.argv) > 2:
+        return sys.argv[2]
+    return "tesseract"
+
+def guardar_limpia(ruta):
+    destino = ruta.with_name(ruta.stem + "-limpia.png")
+    limpiar(Image.open(ruta)).save(destino)
+    print(f"Imagen limpia guardada en: {destino}")
+    print()
 
 def mostrar_resultado(resultado):
     print("Texto reconocido:")
@@ -25,8 +37,8 @@ def main():
     if not ruta.exists():
         print(f"No existe la imagen: {ruta}")
         return
-    motor = MotorTesseract()
-    resultado = motor.reconocer(ruta)
+    guardar_limpia(ruta)
+    resultado = servicio.reconocer(ruta, elegir_motor())
     mostrar_resultado(resultado)
 
 
