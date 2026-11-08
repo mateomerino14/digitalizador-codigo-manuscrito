@@ -18,3 +18,12 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Commits:** Ninguno, actividad documental.
 - **Pendiente:** Preparar la estructura del proyecto para la prueba piloto.
 
+
+## 07/11/2026: Modelos de datos y contrato de los motores
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026), como preparación de la estructura común para comparar las herramientas.
+- **Qué se hizo:** Se definieron las clases Linea y Resultado, que representan la salida de cualquier herramienta HTR, y la clase abstracta MotorHTR, que todos los motores deben cumplir.
+- **Decisiones:** Se guarda la posición horizontal de cada línea para poder reconstruir la indentación más adelante. Se aplicó el patrón Estrategia para que todas las herramientas sean intercambiables y se puedan comparar en igualdad de condiciones.
+- **Commits:** `feat: agrega modelos de linea y resultado`, `feat: agrega contrato base de los motores HTR`, `test: agrega pruebas de los modelos y del contrato base`
+- **Pendiente:** Motor Tesseract como línea base.
+
