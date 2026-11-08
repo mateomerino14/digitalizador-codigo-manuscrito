@@ -66,3 +66,12 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Decisiones:** Se aplicó el patrón Fachada para que la interfaz y el script de la prueba piloto usen un solo punto de entrada, sin depender de cada motor. Para agregar una herramienta nueva solo se registra su clase. Las pruebas usan motores simulados para no depender de las herramientas instaladas.
 - **Commits:** `feat: agrega registro de motores HTR`, `feat: agrega servicio del transcriptor`, `test: agrega pruebas del servicio del transcriptor`
 - **Pendiente:** Preprocesamiento de las imágenes para eliminar la cuadrícula.
+
+## 08/11/2026: Preprocesamiento de las imágenes
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026), y Objetivo 3, actividad 2, "Programación de la lógica de transcripción" (planificada del 01/11/2026 al 14/11/2026).
+- **Qué se hizo:** Se implementó la etapa de preprocesamiento, que binariza la imagen conservando la tinta negra y azul, elimina la cuadrícula del papel y reduce el ruido con un filtro de mediana. El servicio del transcriptor aplica esta etapa antes de entregar la imagen a cualquier motor.
+- **Decisiones:** Un píxel se considera tinta si su nivel de gris es menor a 110, o si su componente azul supera al rojo en más de 35 con un gris menor a 160. Estos valores se definieron como constantes para poder ajustarlos. El preprocesamiento puede desactivarse para comparar los resultados con y sin limpieza en la prueba piloto.
+- **Observaciones:** Con las fotos originales en papel cuadriculado, la limpieza automática produjo el mismo resultado que la limpieza manual, con las mismas posiciones de línea. En Python, la palabra range fue reconocida correctamente, aunque el cero se reconoció como © y la i como ji.
+- **Commits:** `feat: agrega preprocesamiento para eliminar la cuadricula`, `test: agrega pruebas del preprocesamiento`, `feat: aplica el preprocesamiento en el servicio del transcriptor`, `feat: permite elegir el motor y guardar la imagen limpia en el script de prueba`
+- **Pendiente:** Métricas CER y WER para la prueba piloto.
