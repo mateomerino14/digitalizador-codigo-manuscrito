@@ -2,3 +2,5 @@ Pillow
 numpy
 pytesseract
 pytest
+paddlepaddle
+paddleocr
