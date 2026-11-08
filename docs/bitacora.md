@@ -84,3 +84,13 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Observaciones:** Con la imagen de Python sin cuadrícula se obtuvo un CER de 0.26 y un WER de 0.91. El WER es mucho mayor porque una palabra cuenta como error aunque tenga un solo carácter distinto.
 - **Commits:** `feat: agrega calculo de distancia de Levenshtein, CER y WER`, `test: agrega pruebas de las metricas`
 - **Pendiente:** Motor PaddleOCR.
+
+## 08/11/2026: Motor PaddleOCR
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se integró PaddleOCR como segundo motor, registrándolo sin modificar el servicio. Como PaddleOCR detecta fragmentos de texto, se agrupan los que están a la misma altura para formar líneas completas de código.
+- **Decisiones:** El modelo se carga una sola vez y se reutiliza, y el tiempo de reconocimiento se mide sin incluir esa carga. La confianza se convierte a la escala de 0 a 100 para compararla con Tesseract.
+- **Problemas:** PaddlePaddle 3.3.1 falla en Windows sin tarjeta gráfica con el error `ConvertPirAttribute2RuntimeAttribute not support`, causado por la librería de aceleración oneDNN. Se resolvió desactivándola con `enable_mkldnn=False`.
+- **Observaciones:** Se usó el modelo PP-OCRv6 medium, la versión por defecto de PaddleOCR 3.7.0. Reconoció mucho mejor que Tesseract, sobre todo en Java. Los errores más frecuentes fueron suma como soma, el 5 como s, el 0 como O y println como printin, y la llave de cierre se detectó sin texto. La indentación se conservó en ambas imágenes.
+- **Commits:** `feat: agrega motor PaddleOCR`, `feat: registra el motor PaddleOCR`, `test: agrega prueba de agrupacion de lineas de PaddleOCR`, `fix: excluye la carga del modelo del tiempo de PaddleOCR`
+- **Pendiente:** Motor TrOCR con segmentación de líneas.
