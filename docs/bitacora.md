@@ -27,3 +27,10 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Commits:** `feat: agrega modelos de linea y resultado`, `feat: agrega contrato base de los motores HTR`, `test: agrega pruebas de los modelos y del contrato base`
 - **Pendiente:** Motor Tesseract como línea base.
 
+## 07/11/2026: Motor Tesseract
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se integró Tesseract como primer motor, que reconoce una imagen y agrupa las palabras en líneas con su posición y su confianza.
+- **Decisiones:** Tesseract se usa como línea base de la prueba piloto. Se guarda la posición horizontal de cada línea, ya que en las primeras pruebas el texto reconocido pierde la indentación del código.
+- **Commits:** `feat: agrega motor Tesseract como linea base`, `test: agrega prueba de agrupacion de lineas de Tesseract`
+- **Pendiente:** Registro de motores y servicio del transcriptor.
