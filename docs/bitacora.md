@@ -34,3 +34,20 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Decisiones:** Tesseract se usa como línea base de la prueba piloto. Se guarda la posición horizontal de cada línea, ya que en las primeras pruebas el texto reconocido pierde la indentación del código.
 - **Commits:** `feat: agrega motor Tesseract como linea base`, `test: agrega prueba de agrupacion de lineas de Tesseract`
 - **Pendiente:** Registro de motores y servicio del transcriptor.
+
+## 07/11/2026: Script de prueba
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se creó el script ejecucion_prueba.py, que reconoce una imagen y muestra el texto obtenido, la posición de cada línea y el tiempo empleado.
+- **Decisiones:** El script recibe la ruta de la imagen desde la terminal y avisa si la imagen no existe, para facilitar las pruebas manuales.
+- **Commits:** `feat: agrega script para probar el reconocimiento de una imagen`
+- **Pendiente:** Probar el motor con imágenes reales.
+
+## 07/11/2026: Primera prueba con imágenes reales
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se probó el motor Tesseract con dos imágenes de código manuscrito escritas sobre papel cuadriculado, una en Python y otra en Java, primero en su versión original y luego sin la cuadrícula.
+- **Decisiones:** Tesseract confunde las líneas de la cuadrícula con caracteres y no logra separar las líneas de código. Al conservar solo la tinta y eliminar la cuadrícula, el reconocimiento mejora notablemente, por lo que se incorporará una etapa de preprocesamiento antes del reconocimiento.
+- **Observaciones:** Con las imágenes limpias, Tesseract conserva la estructura del código pero confunde caracteres parecidos (0 y O, i e I) y palabras reservadas (range como mange, print como priot). La posición horizontal de las líneas indentadas es claramente mayor (145 frente a 50 en Python, 294 frente a 100 en Java), lo que permitirá reconstruir la indentación. En Java se pierden más símbolos, como los punto y coma y la llave de cierre.
+- **Commits:** Ninguno, prueba manual.
+- **Pendiente:** Registro de motores, servicio del transcriptor y preprocesamiento de las imágenes.
