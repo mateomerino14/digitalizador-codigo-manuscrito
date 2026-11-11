@@ -4,3 +4,5 @@ pytesseract
 pytest
 paddlepaddle
 paddleocr
+torch
+transformers
