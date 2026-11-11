@@ -13,7 +13,7 @@ def elegir_imagen():
 def elegir_motor():
     if len(sys.argv) > 2:
         return sys.argv[2]
-    return "tesseract"
+    return "paddleocr"
 
 def guardar_limpia(ruta):
     destino = ruta.with_name(ruta.stem + "-limpia.png")

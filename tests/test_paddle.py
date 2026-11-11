@@ -1,6 +1,5 @@
 from transcriptor.motores.paddle import MotorPaddle
 
-
 def caja(texto, x, arriba, abajo, confianza=90):
     return {"texto": texto, "x": x, "arriba": arriba, "abajo": abajo, "confianza": confianza}
 

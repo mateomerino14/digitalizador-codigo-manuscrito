@@ -1,6 +1,5 @@
 from transcriptor.motores.tesseract import MotorTesseract
 
-
 def test_agrupa_lineas():
     datos = {
         "text": ["print(x)", "", "x", "=", "1"],

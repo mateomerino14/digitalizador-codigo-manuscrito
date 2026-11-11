@@ -1,3 +1,4 @@
+#Levenstein
 def distancia(a, b):
     anterior = list(range(len(b) + 1))
     for i, x in enumerate(a, start=1):
@@ -8,15 +9,17 @@ def distancia(a, b):
         anterior = actual
     return anterior[-1]
 
-
+#Error de palabras
 def cer(referencia, reconocido):
     if not referencia:
         raise ValueError("la referencia esta vacia")
-    return distancia(referencia, reconocido) / len(referencia)
+    resultado = distancia(referencia, reconocido) / len(referencia)
+    return resultado
 
-
+#Error de caracteres
 def wer(referencia, reconocido):
     palabras = referencia.split()
     if not palabras:
         raise ValueError("la referencia esta vacia")
-    return distancia(palabras, reconocido.split()) / len(palabras)
+    resultado = distancia(palabras, reconocido.split()) / len(palabras)
+    return resultado

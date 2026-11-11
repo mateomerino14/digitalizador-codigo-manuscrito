@@ -7,9 +7,9 @@ class MotorHTR(ABC):
 
     #Determina si un reconocedor se puede usar
     @abstractmethod
-    def disponible(self) -> tuple[bool, str]:
+    def disponible(self):
         ...
 
     @abstractmethod
-    def reconocer(self, ruta: Path) -> Resultado:
+    def reconocer(self, ruta: Path):
         ...
