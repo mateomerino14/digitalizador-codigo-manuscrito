@@ -94,3 +94,21 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Observaciones:** Se usó el modelo PP-OCRv6 medium, la versión por defecto de PaddleOCR 3.7.0. Reconoció mucho mejor que Tesseract, sobre todo en Java. Los errores más frecuentes fueron suma como soma, el 5 como s, el 0 como O y println como printin, y la llave de cierre se detectó sin texto. La indentación se conservó en ambas imágenes.
 - **Commits:** `feat: agrega motor PaddleOCR`, `feat: registra el motor PaddleOCR`, `test: agrega prueba de agrupacion de lineas de PaddleOCR`, `fix: excluye la carga del modelo del tiempo de PaddleOCR`
 - **Pendiente:** Motor TrOCR con segmentación de líneas.
+
+## 11/11/2026: Exclusión de Google Cloud Vision
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se intentó activar la prueba gratuita de Google Cloud para usar Cloud Vision.
+- **Problemas:** Para cuentas registradas en Bolivia, Google Cloud exige un prepago de 30 USD antes de activar la prueba gratuita y sus créditos.
+- **Decisiones:** Google Cloud Vision no se incluye en la prueba piloto por no cumplir el criterio de disponibilidad. Se conserva una captura del aviso como evidencia.
+- **Commits:** Ninguno, actividad de configuración.
+- **Pendiente:** Cuenta de Azure AI Vision.
+
+## 11/11/2026: Exclusión de Azure AI Vision
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se intentó activar Azure AI Vision mediante Azure for Students y mediante una cuenta gratuita.
+- **Problemas:** Azure for Students no reconoció el dominio del correo institucional de la UMSS. La verificación académica manual tampoco fue posible, porque la Universidad Mayor de San Simón no figura en la lista de instituciones de Microsoft y el formulario no permite ingresarla. Al intentar crear una cuenta gratuita, Microsoft bloqueó el acceso por no poder validar la cuenta.
+- **Decisiones:** Azure AI Vision no se incluye en la prueba piloto por no cumplir el criterio de disponibilidad. Con la exclusión de ambos servicios en la nube, la piloto se realiza con Tesseract como línea base, PaddleOCR y TrOCR, todas de código abierto. Gracias al registro de motores, un servicio en la nube puede integrarse más adelante si se obtiene acceso. Se conservan capturas de los mensajes como evidencia.
+- **Commits:** Ninguno, actividad de configuración.
+- **Pendiente:** Motor TrOCR con segmentación de líneas.
