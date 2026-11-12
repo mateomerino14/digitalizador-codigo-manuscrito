@@ -14,7 +14,7 @@ def motores_disponibles():
     return estado
 
 
-def reconocer(ruta: Path, nombre_motor: str, limpiar_imagen: bool = True) -> Resultado:
+def reconocer(ruta: Path, nombre_motor: str, limpiar_imagen: bool = True):
     if nombre_motor not in MOTORES:
         raise ValueError(f"motor desconocido: {nombre_motor}")
     ruta = Path(ruta)
