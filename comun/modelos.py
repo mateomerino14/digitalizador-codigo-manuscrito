@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
 
-#Moldes de datos para normalizar los resultados de cada reconocedor
+# Moldes de datos para normalizar los resultados de cada reconocedor
 
-@dataclass 
+
+@dataclass
 class Linea:
     texto: str
     x: int

@@ -1,7 +1,8 @@
 import numpy as np
 from PIL import Image
 
-#Separa la imagen en lineas de texto
+
+# Separa la imagen en lineas de texto
 def segmentar_lineas(imagen: Image.Image):
     tinta = np.asarray(imagen.convert("L")) < 128
     franjas = _franjas(tinta.sum(axis=1) >= 2)
@@ -24,7 +25,7 @@ def _franjas(con_tinta):
             inicio = None
     if inicio is not None:
         franjas.append((inicio, len(con_tinta)))
-    #print(franjas)
+    # print(franjas)
     return franjas
 
 
@@ -35,5 +36,5 @@ def _unir(franjas):
             unidas[-1] = (unidas[-1][0], abajo)
         else:
             unidas.append((arriba, abajo))
-    #print(unidas)
+    # print(unidas)
     return unidas

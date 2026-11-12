@@ -3,6 +3,7 @@ from pathlib import Path
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 
+
 class MotorPaddle(MotorHTR):
     nombre = "paddleocr"
     _ocr = None
@@ -25,7 +26,13 @@ class MotorPaddle(MotorHTR):
         cajas = []
         for k in range(len(textos)):
             rectangulo = rectangulos[k]
-            caja = {"texto": textos[k], "x": int(rectangulo[0]), "arriba": int(rectangulo[1]), "abajo": int(rectangulo[3]), "confianza": float(confianzas[k]) * 100}
+            caja = {
+                "texto": textos[k],
+                "x": int(rectangulo[0]),
+                "arriba": int(rectangulo[1]),
+                "abajo": int(rectangulo[3]),
+                "confianza": float(confianzas[k]) * 100,
+            }
             cajas.append(caja)
         lineas = self._agrupar_lineas(cajas)
         textos_lineas = []
@@ -39,6 +46,7 @@ class MotorPaddle(MotorHTR):
     def _modelo(cls):
         if cls._ocr is None:
             from paddleocr import PaddleOCR
+
             cls._ocr = PaddleOCR(
                 use_doc_orientation_classify=False,
                 use_doc_unwarping=False,

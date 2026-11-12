@@ -10,16 +10,19 @@ def elegir_imagen():
         return Path(sys.argv[1])
     return Path("datos/ja-p1.jpg")
 
+
 def elegir_motor():
     if len(sys.argv) > 2:
         return sys.argv[2]
     return "paddleocr"
+
 
 def guardar_limpia(ruta):
     destino = ruta.with_name(ruta.stem + "-limpia.png")
     limpiar(Image.open(ruta)).save(destino)
     print(f"Imagen limpia guardada en: {destino}")
     print()
+
 
 def mostrar_resultado(resultado):
     print("Texto reconocido:")

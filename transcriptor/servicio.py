@@ -26,7 +26,7 @@ def reconocer(ruta: Path, nombre_motor: str, limpiar_imagen: bool = True):
         raise RuntimeError(f"{nombre_motor} no disponible: {motivo}")
     if not limpiar_imagen:
         return motor.reconocer(ruta)
-    #imagen limpia
+    # imagen limpia
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as carpeta:
         limpia = Path(carpeta) / "limpia.png"
         limpiar(Image.open(ruta)).save(limpia)

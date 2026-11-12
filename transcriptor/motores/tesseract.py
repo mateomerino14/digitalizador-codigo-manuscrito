@@ -4,6 +4,7 @@ from pathlib import Path
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 
+
 class MotorTesseract(MotorHTR):
     nombre = "tesseract"
 
@@ -19,9 +20,12 @@ class MotorTesseract(MotorHTR):
     def reconocer(self, ruta: Path):
         import pytesseract
         from PIL import Image
+
         inicio = time.perf_counter()
-        datos = pytesseract.image_to_data(Image.open(ruta), output_type=pytesseract.Output.DICT)
-        #print(datos)
+        datos = pytesseract.image_to_data(
+            Image.open(ruta), output_type=pytesseract.Output.DICT
+        )
+        # print(datos)
         lineas = self._agrupar_lineas(datos)
         texto = "\n".join(linea.texto for linea in lineas)
         return Resultado(self.nombre, texto, lineas, time.perf_counter() - inicio)

@@ -6,6 +6,7 @@ from transcriptor.motores.base import MotorHTR
 from transcriptor.preprocesamiento import limpiar
 from transcriptor.segmentacion import segmentar_lineas
 
+
 class MotorTrOCR(MotorHTR):
     nombre = "trocr"
     modelo_hf = "microsoft/trocr-base-handwritten"
@@ -25,9 +26,14 @@ class MotorTrOCR(MotorHTR):
         inicio = time.perf_counter()
         imagen = Image.open(ruta).convert("RGB")
         lineas = []
-        #Se corta la imagen en lineas
+        # Se corta la imagen en lineas
         for izquierda, arriba, derecha, abajo in segmentar_lineas(limpiar(imagen)):
-            caja = (max(izquierda - 10, 0), max(arriba - 10, 0), min(derecha + 10, imagen.width), min(abajo + 10, imagen.height))
+            caja = (
+                max(izquierda - 10, 0),
+                max(arriba - 10, 0),
+                min(derecha + 10, imagen.width),
+                min(abajo + 10, imagen.height),
+            )
             texto = self._leer(procesador, red, imagen.crop(caja))
             lineas.append(Linea(texto, izquierda, arriba))
         texto = "\n".join(linea.texto for linea in lineas)
@@ -42,6 +48,7 @@ class MotorTrOCR(MotorHTR):
     def _cargar(cls):
         if cls._red is None:
             from transformers import TrOCRProcessor, VisionEncoderDecoderModel
+
             cls._procesador = TrOCRProcessor.from_pretrained(cls.modelo_hf)
             cls._red = VisionEncoderDecoderModel.from_pretrained(cls.modelo_hf)
         return cls._procesador, cls._red
