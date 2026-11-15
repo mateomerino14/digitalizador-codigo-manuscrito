@@ -1,5 +1,5 @@
-from transcriptor.motores.tesseract import MotorTesseract
 from transcriptor.motores.paddle import MotorPaddle
+from transcriptor.motores.tesseract import MotorTesseract
 from transcriptor.motores.trocr import MotorTrOCR
 
 MOTORES = {

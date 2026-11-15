@@ -1,5 +1,6 @@
 import pytest
 from PIL import Image
+
 from comun.modelos import Resultado
 from transcriptor import servicio
 from transcriptor.motores.base import MotorHTR

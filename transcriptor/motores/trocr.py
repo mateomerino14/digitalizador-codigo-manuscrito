@@ -1,6 +1,8 @@
 import time
 from pathlib import Path
+
 from PIL import Image
+
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 from transcriptor.preprocesamiento import limpiar
@@ -15,8 +17,8 @@ class MotorTrOCR(MotorHTR):
 
     def disponible(self):
         try:
-            import torch
-            import transformers
+            import torch  # noqa: F401
+            import transformers  # noqa: F401
         except ImportError:
             return False, "falta instalar torch o transformers"
         return True, ""

@@ -1,6 +1,7 @@
 import shutil
 import time
 from pathlib import Path
+
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 
@@ -12,7 +13,7 @@ class MotorTesseract(MotorHTR):
         if shutil.which("tesseract") is None:
             return False, "tesseract no esta instalado o no esta en el PATH"
         try:
-            import pytesseract
+            import pytesseract  # noqa: F401
         except ImportError:
             return False, "falta instalar pytesseract"
         return True, ""
@@ -20,7 +21,6 @@ class MotorTesseract(MotorHTR):
     def reconocer(self, ruta: Path):
         import pytesseract
         from PIL import Image
-
         inicio = time.perf_counter()
         datos = pytesseract.image_to_data(
             Image.open(ruta), output_type=pytesseract.Output.DICT

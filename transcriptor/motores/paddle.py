@@ -1,5 +1,6 @@
 import time
 from pathlib import Path
+
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 
@@ -10,8 +11,8 @@ class MotorPaddle(MotorHTR):
 
     def disponible(self):
         try:
-            import paddle
-            import paddleocr
+            import paddle  # noqa: F401
+            import paddleocr  # noqa: F401
         except ImportError:
             return False, "falta instalar paddlepaddle o paddleocr"
         return True, ""
@@ -73,7 +74,7 @@ class MotorPaddle(MotorHTR):
 
     def _misma_fila(self, primera, caja):
         centro = self._centro(caja)
-        return primera["arriba"] <= centro and centro <= primera["abajo"]
+        return primera["arriba"] <= centro <= primera["abajo"]
 
     def _unir_fila(self, fila):
         fila = sorted(fila, key=self._posicion_x)
@@ -83,8 +84,7 @@ class MotorPaddle(MotorHTR):
         for caja in fila:
             textos.append(caja["texto"])
             suma_confianza = suma_confianza + caja["confianza"]
-            if caja["arriba"] < arriba:
-                arriba = caja["arriba"]
+            arriba = min(arriba, caja["arriba"])
         texto = " ".join(textos)
         confianza = suma_confianza / len(fila)
         return Linea(texto, fila[0]["x"], arriba, confianza)

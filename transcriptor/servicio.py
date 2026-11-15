@@ -1,8 +1,9 @@
-from pathlib import Path
-from comun.modelos import Resultado
-from transcriptor.motores import MOTORES
 import tempfile
+from pathlib import Path
+
 from PIL import Image
+
+from transcriptor.motores import MOTORES
 from transcriptor.preprocesamiento import limpiar
 
 

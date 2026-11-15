@@ -1,4 +1,5 @@
 import pytest
+
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 

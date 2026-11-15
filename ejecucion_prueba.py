@@ -1,6 +1,8 @@
 import sys
 from pathlib import Path
+
 from PIL import Image
+
 from transcriptor import servicio
 from transcriptor.preprocesamiento import limpiar
 
@@ -8,7 +10,7 @@ from transcriptor.preprocesamiento import limpiar
 def elegir_imagen():
     if len(sys.argv) > 1:
         return Path(sys.argv[1])
-    return Path("datos/ja-p1.jpg")
+    return Path("datos/py-p2.png")
 
 
 def elegir_motor():
