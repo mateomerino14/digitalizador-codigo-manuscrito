@@ -21,6 +21,7 @@ class MotorTesseract(MotorHTR):
     def reconocer(self, ruta: Path):
         import pytesseract
         from PIL import Image
+
         inicio = time.perf_counter()
         datos = pytesseract.image_to_data(
             Image.open(ruta), output_type=pytesseract.Output.DICT
