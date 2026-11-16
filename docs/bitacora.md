@@ -155,3 +155,11 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Decisiones:** Pendiente de diagnóstico.
 - **Commits:** Ninguno.
 - **Pendiente:** Resolver el conflicto antes de ejecutar la prueba piloto.
+
+## 15/11/2026: Script de figuras y uniformidad del código
+
+- **Actividad del cronograma:** Objetivo 3, actividad 2, "Programación de la lógica de transcripción" (planificada del 01/11/2026 al 14/11/2026).
+- **Qué se hizo:** Se creó el script figuras.py, que genera las Figuras 3 y 4 del Capítulo 3 a partir de las imágenes de prueba, usando las mismas funciones de preprocesamiento y segmentación del prototipo. Se agregó la configuración de Ruff al repositorio y se unificó el estilo del código.
+- **Decisiones:** Las figuras se generan con código para que puedan reproducirse y verificarse. Las funciones que realizan una acción se nombran con verbos y las que calculan un valor se nombran según el valor que devuelven, por lo que se renombraron cinco funciones. Se quitaron todas las anotaciones de tipo para mantener un mismo criterio en todo el proyecto. Se aceptan las comas finales que agrega Ruff al dividir una expresión en varias líneas.
+- **Commits:** `chore: agrega configuracion de ruff`, `feat: agrega script que genera las figuras de la segmentacion`, `refactor: nombra funciones segun su accion y quita anotaciones de tipo`
+- **Pendiente:** Resolver el conflicto entre PaddlePaddle y PyTorch.
