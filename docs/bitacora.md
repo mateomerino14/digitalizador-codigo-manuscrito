@@ -163,3 +163,12 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Decisiones:** Las figuras se generan con código para que puedan reproducirse y verificarse. Las funciones que realizan una acción se nombran con verbos y las que calculan un valor se nombran según el valor que devuelven, por lo que se renombraron cinco funciones. Se quitaron todas las anotaciones de tipo para mantener un mismo criterio en todo el proyecto. Se aceptan las comas finales que agrega Ruff al dividir una expresión en varias líneas.
 - **Commits:** `chore: agrega configuracion de ruff`, `feat: agrega script que genera las figuras de la segmentacion`, `refactor: nombra funciones segun su accion y quita anotaciones de tipo`
 - **Pendiente:** Resolver el conflicto entre PaddlePaddle y PyTorch.
+
+## 15/11/2026: Conflicto entre PaddlePaddle y PyTorch
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Al volver a ejecutar PaddleOCR después de instalar PyTorch para TrOCR, el motor dejó de funcionar.
+- **Problemas:** PaddleOCR carga la librería modelscope, que a su vez carga PyTorch. En Windows, cuando PaddlePaddle se carga primero, PyTorch falla al cargar sus librerías con el error `WinError 127` en `shm.dll`.
+- **Decisiones:** Se comprobó que el error solo ocurre cuando PaddlePaddle se carga antes que PyTorch. Se agregó al motor PaddleOCR una función que carga PyTorch primero, si está instalado, antes de cargar PaddlePaddle. Si PyTorch no está instalado, el motor funciona igual. Con el ajuste, PaddleOCR y TrOCR funcionan en el mismo entorno. PaddleOCR reconoció la imagen de Python en 15 segundos y TrOCR en 13.
+- **Commits:** `fix: carga torch antes que paddle para evitar conflicto de librerias en Windows`
+- **Pendiente:** Imágenes y referencias de la prueba piloto.
