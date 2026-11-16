@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw
 
-from transcriptor.preprocesamiento import limpiar
+from transcriptor.preprocesamiento import limpiar, reducir
 
 
 def hoja(color, ancho=1):
@@ -28,3 +28,13 @@ def test_quita_puntos():
     imagen = Image.new("RGB", (40, 40), "white")
     imagen.putpixel((20, 20), (0, 0, 0))
     assert limpiar(imagen).getpixel((20, 20)) == 255
+
+
+def test_reduce_grande():
+    imagen = Image.new("RGB", (4000, 3000), "white")
+    assert reducir(imagen).size == (2000, 1500)
+
+
+def test_deja_pequena():
+    imagen = Image.new("RGB", (800, 600), "white")
+    assert reducir(imagen).size == (800, 600)

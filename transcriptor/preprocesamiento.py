@@ -2,6 +2,16 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 
+def reducir(imagen):
+    lado_mayor = max(imagen.size)
+    if lado_mayor <= 2000:
+        return imagen
+    escala = 2000 / lado_mayor
+    ancho = round(imagen.width * escala)
+    alto = round(imagen.height * escala)
+    return imagen.resize((ancho, alto), Image.Resampling.LANCZOS)
+
+
 def limpiar(imagen):
     rgb = np.asarray(imagen.convert("RGB")).astype(int)
     gris = np.asarray(imagen.convert("L")).astype(int)

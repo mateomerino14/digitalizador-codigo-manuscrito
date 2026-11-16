@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image
 
 from transcriptor.motores import MOTORES
-from transcriptor.preprocesamiento import limpiar
+from transcriptor.preprocesamiento import limpiar, reducir
 
 
 def motores_disponibles():
@@ -25,10 +25,10 @@ def reconocer(ruta, nombre_motor, limpiar_imagen=True):
     listo, motivo = motor.disponible()
     if not listo:
         raise RuntimeError(f"{nombre_motor} no disponible: {motivo}")
-    if not limpiar_imagen:
-        return motor.reconocer(ruta)
-    # imagen limpia
+    imagen = reducir(Image.open(ruta))
+    if limpiar_imagen:
+        imagen = limpiar(imagen)
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as carpeta:
-        limpia = Path(carpeta) / "limpia.png"
-        limpiar(Image.open(ruta)).save(limpia)
-        return motor.reconocer(limpia)
+        preparada = Path(carpeta) / "preparada.png"
+        imagen.save(preparada)
+        return motor.reconocer(preparada)

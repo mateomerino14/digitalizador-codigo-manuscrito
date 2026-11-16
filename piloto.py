@@ -33,12 +33,40 @@ def referencia_de(ruta):
     return normalizar(texto)
 
 
-def evaluar_motores(imagenes):
+def filas_guardadas():
     filas = []
+    if not RESULTADOS.exists():
+        return filas
+    with open(RESULTADOS, encoding="utf-8") as archivo:
+        for fila in csv.DictReader(archivo):
+            fila["cer"] = float(fila["cer"])
+            fila["wer"] = float(fila["wer"])
+            fila["segundos"] = float(fila["segundos"])
+            filas.append(fila)
+    return filas
+
+
+def clave(imagen, motor, limpieza):
+    return f"{imagen} {motor} {limpieza}"
+
+
+def guardar(fila):
+    nuevo = not RESULTADOS.exists()
+    with open(RESULTADOS, "a", newline="", encoding="utf-8") as archivo:
+        escritor = csv.DictWriter(archivo, fieldnames=COLUMNAS)
+        if nuevo:
+            escritor.writeheader()
+        escritor.writerow(fila)
+
+
+def evaluar_motores(imagenes, hechas):
     for ruta, lenguaje in imagenes:
         referencia = referencia_de(ruta)
         for motor in MOTORES:
             for limpieza in [False, True]:
+                texto_limpieza = "si" if limpieza else "no"
+                if clave(ruta.stem, motor, texto_limpieza) in hechas:
+                    continue
                 print(f"{ruta.name} {motor} limpieza={limpieza}")
                 try:
                     resultado = servicio.reconocer(ruta, motor, limpieza)
@@ -46,31 +74,31 @@ def evaluar_motores(imagenes):
                     print(f"  error: {error}")
                     continue
                 texto = normalizar(resultado.texto)
-                filas.append(
+                guardar(
                     {
                         "imagen": ruta.stem,
                         "lenguaje": lenguaje,
                         "motor": motor,
-                        "limpieza": "si" if limpieza else "no",
+                        "limpieza": texto_limpieza,
                         "cer": round(cer(referencia, texto), 4),
                         "wer": round(wer(referencia, texto), 4),
                         "segundos": round(resultado.segundos, 2),
                     }
                 )
-    return filas
 
 
-def evaluar_nube():
-    filas = []
+def evaluar_nube(hechas):
     archivo_nube = PILOTO / "python" / "nube.csv"
     if not archivo_nube.exists():
-        return filas
+        return
     with open(archivo_nube, encoding="utf-8") as archivo:
         for dato in csv.DictReader(archivo):
             referencia = referencia_de(PILOTO / "python" / (dato["imagen"] + ".jpg"))
             for motor in ["google", "azure"]:
+                if clave(dato["imagen"], motor, "dataset") in hechas:
+                    continue
                 texto = normalizar(dato[motor])
-                filas.append(
+                guardar(
                     {
                         "imagen": dato["imagen"],
                         "lenguaje": "python",
@@ -81,15 +109,6 @@ def evaluar_nube():
                         "segundos": 0,
                     }
                 )
-    return filas
-
-
-def guardar(filas):
-    with open(RESULTADOS, "w", newline="", encoding="utf-8") as archivo:
-        escritor = csv.DictWriter(archivo, fieldnames=COLUMNAS)
-        escritor.writeheader()
-        escritor.writerows(filas)
-    print(f"Resultados guardados en: {RESULTADOS}")
 
 
 def promedio(filas, columna):
@@ -118,9 +137,13 @@ def mostrar_resumen(filas):
 def main():
     imagenes = imagenes_piloto()
     print(f"Imagenes encontradas: {len(imagenes)}")
-    filas = evaluar_motores(imagenes) + evaluar_nube()
-    guardar(filas)
-    mostrar_resumen(filas)
+    hechas = set()
+    for fila in filas_guardadas():
+        hechas.add(clave(fila["imagen"], fila["motor"], fila["limpieza"]))
+    evaluar_motores(imagenes, hechas)
+    evaluar_nube(hechas)
+    print(f"Resultados guardados en: {RESULTADOS}")
+    mostrar_resumen(filas_guardadas())
 
 
 if __name__ == "__main__":
