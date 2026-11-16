@@ -171,3 +171,20 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Decisiones:** Se eligieron solo las imágenes que cumplen las condiciones de captura del prototipo, descartando las hojas rayadas, las fotos giradas o lejanas, las que tienen sombras fuertes o luz de color, y las que tienen texto impreso al reverso. Una imagen que venía girada según los datos de la cámara se guardó derecha. Antes de calcular las métricas se quitan la indentación y las líneas vacías, porque las herramientas HTR no devuelven la indentación, que la reconstruye después el corrector. Las salidas de Google y Azure del dataset se usan como referencia, ya que esos servicios no pudieron habilitarse. Como el dataset no tiene Java, las imágenes de Java se escribirán a mano.
 - **Commits:** `feat: agrega script de la prueba piloto`
 - **Pendiente:** Resultados de la prueba piloto e imágenes de Java.
+
+## 15/11/2026 - 16/11/2026: Diseño de la arquitectura con el modelo C4
+
+- **Actividad del cronograma:** Objetivo 3, actividad 1, "Diseño de la arquitectura del componente transcriptor" (planificada del 01/11/2026 al 14/11/2026).
+- **Qué se hizo:** Se elaboró en Miro el modelo C4 del prototipo con sus cuatro niveles. El diagrama de contexto muestra al docente, el prototipo, Tesseract OCR y los repositorios de modelos preentrenados. El diagrama de contenedores separa la aplicación web en Streamlit, la base de datos SQLite y los modelos locales. El diagrama de componentes muestra la interfaz, el servicio de transcripción, los tres motores, el preprocesamiento, la segmentación, el corrector y el evaluador. El diagrama de código corresponde al componente transcriptor.
+- **Decisiones:** El diagrama de código se hizo solo para el transcriptor, porque es el único componente programado hasta ahora. Se hará también para el corrector y para el evaluador, este último porque el cronograma lo pide en el Objetivo 5. Los módulos de Python sin clases se marcaron con el estereotipo «module», y la herencia de los motores con «extends». El diagrama de código se revisó contra el código del repositorio para que coincidan los nombres, los atributos y los métodos.
+- **Commits:** Ninguno, actividad de diseño.
+- **Pendiente:** Documentar la arquitectura en el Capítulo 3.
+
+## 16/11/2026: Caída de PaddleOCR con imágenes grandes
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Al ejecutar la prueba piloto, el programa se cerró sin mostrar ningún error al reconocer con PaddleOCR la imagen limpia de py-04, que mide 3024 x 4032 píxeles. Se perdieron los resultados, porque el script guardaba el archivo CSV recién al final.
+- **Problemas:** El código de salida fue -1073741819, que corresponde a un error de acceso a memoria dentro de PaddlePaddle. Al ejecutar la misma imagen por separado sí funcionó, pero tardó 759 segundos, muy por encima del límite de 60 segundos del requerimiento RNF01.
+- **Decisiones:** Se agregó al preprocesamiento la función reducir, que achica la imagen cuando su lado mayor supera los 2000 píxeles, conservando su proporción. El servicio la aplica siempre, con limpieza o sin ella. Además, el script de la prueba piloto ahora guarda cada resultado apenas se calcula y, si se interrumpe, continúa desde donde quedó. Se agregaron dos pruebas unitarias para la reducción, con lo que el proyecto tiene 25 pruebas.
+- **Commits:** `fix: reduce las imagenes grandes antes del reconocimiento`
+- **Pendiente:** Resultados de la prueba piloto e imágenes de Java.
