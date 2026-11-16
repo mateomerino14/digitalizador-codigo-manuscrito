@@ -30,6 +30,12 @@ def reconocer_imagen(archivo, motor, limpiar):
         return servicio.reconocer(ruta, motor, limpiar)
 
 
+def predeterminado(listos):
+    if "paddleocr" in listos:
+        return listos.index("paddleocr")
+    return 0
+
+
 def posiciones(resultado):
     filas = []
     for linea in resultado.lineas:
@@ -41,7 +47,12 @@ def mostrar_opciones():
     archivo = st.file_uploader("Imagen del código", type=["jpg", "jpeg", "png"])
     st.caption("Formatos permitidos (JPG, PNG), hasta 20 MB")
     listos = motores_listos()
-    motor = st.selectbox("Herramienta", listos, format_func=MOTORES.get)
+    motor = st.selectbox(
+        "Herramienta",
+        listos,
+        index=predeterminado(listos),
+        format_func=MOTORES.get,
+    )
     lenguaje = st.selectbox("Lenguaje", ["Python", "Java"])
     limpiar = st.checkbox("Limpiar la imagen", value=True)
     if not st.button("Reconocer", type="primary"):
