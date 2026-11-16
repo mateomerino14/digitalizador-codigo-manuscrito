@@ -2,7 +2,7 @@ import numpy as np
 from PIL import Image, ImageFilter
 
 
-def limpiar(imagen: Image.Image):
+def limpiar(imagen):
     rgb = np.asarray(imagen.convert("RGB")).astype(int)
     gris = np.asarray(imagen.convert("L")).astype(int)
     rojo = rgb[:, :, 0]

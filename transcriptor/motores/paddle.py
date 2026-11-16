@@ -1,5 +1,4 @@
 import time
-from pathlib import Path
 
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
@@ -17,8 +16,8 @@ class MotorPaddle(MotorHTR):
             return False, "falta instalar paddlepaddle o paddleocr"
         return True, ""
 
-    def reconocer(self, ruta: Path):
-        modelo = self._modelo()
+    def reconocer(self, ruta):
+        modelo = self._cargar_modelo()
         inicio = time.perf_counter()
         datos = modelo.predict(str(ruta))[0]
         textos = datos["rec_texts"]
@@ -44,7 +43,7 @@ class MotorPaddle(MotorHTR):
         return Resultado(self.nombre, texto, lineas, segundos)
 
     @classmethod
-    def _modelo(cls):
+    def _cargar_modelo(cls):
         if cls._ocr is None:
             from paddleocr import PaddleOCR
 
@@ -60,7 +59,7 @@ class MotorPaddle(MotorHTR):
         cajas = sorted(cajas, key=self._centro)
         filas = []
         for caja in cajas:
-            if len(filas) > 0 and self._misma_fila(filas[-1][0], caja):
+            if len(filas) > 0 and self._es_misma_fila(filas[-1][0], caja):
                 filas[-1].append(caja)
             else:
                 filas.append([caja])
@@ -72,7 +71,7 @@ class MotorPaddle(MotorHTR):
     def _centro(self, caja):
         return (caja["arriba"] + caja["abajo"]) / 2
 
-    def _misma_fila(self, primera, caja):
+    def _es_misma_fila(self, primera, caja):
         centro = self._centro(caja)
         return primera["arriba"] <= centro <= primera["abajo"]
 

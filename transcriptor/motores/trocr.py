@@ -1,5 +1,4 @@
 import time
-from pathlib import Path
 
 from PIL import Image
 
@@ -23,8 +22,8 @@ class MotorTrOCR(MotorHTR):
             return False, "falta instalar torch o transformers"
         return True, ""
 
-    def reconocer(self, ruta: Path):
-        procesador, red = self._cargar()
+    def reconocer(self, ruta):
+        procesador, red = self._cargar_modelo()
         inicio = time.perf_counter()
         imagen = Image.open(ruta).convert("RGB")
         lineas = []
@@ -47,7 +46,7 @@ class MotorTrOCR(MotorHTR):
         return procesador.batch_decode(ids, skip_special_tokens=True)[0]
 
     @classmethod
-    def _cargar(cls):
+    def _cargar_modelo(cls):
         if cls._red is None:
             from transformers import TrOCRProcessor, VisionEncoderDecoderModel
 

@@ -1,13 +1,12 @@
 import numpy as np
-from PIL import Image
 
 
 # Separa la imagen en lineas de texto
-def segmentar_lineas(imagen: Image.Image):
+def segmentar_lineas(imagen):
     tinta = np.asarray(imagen.convert("L")) < 128
     por_fila = tinta.sum(axis=1)
     partes = []
-    for arriba, abajo in _franjas(por_fila >= 2):
+    for arriba, abajo in _buscar_franjas(por_fila >= 2):
         partes = partes + _dividir(por_fila, arriba, abajo)
     lineas = []
     for arriba, abajo in _unir(partes):
@@ -17,7 +16,7 @@ def segmentar_lineas(imagen: Image.Image):
     return lineas
 
 
-def _franjas(con_tinta):
+def _buscar_franjas(con_tinta):
     franjas = []
     inicio = None
     for y, hay in enumerate(con_tinta):
@@ -36,7 +35,7 @@ def _dividir(por_fila, arriba, abajo):
     tramo = por_fila[arriba:abajo]
     umbral = tramo.max() * 0.10
     partes = []
-    for inicio, fin in _franjas(tramo >= umbral):
+    for inicio, fin in _buscar_franjas(tramo >= umbral):
         partes.append((arriba + inicio, arriba + fin))
     return partes
 

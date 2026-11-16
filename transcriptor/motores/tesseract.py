@@ -1,6 +1,5 @@
 import shutil
 import time
-from pathlib import Path
 
 from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
@@ -18,7 +17,7 @@ class MotorTesseract(MotorHTR):
             return False, "falta instalar pytesseract"
         return True, ""
 
-    def reconocer(self, ruta: Path):
+    def reconocer(self, ruta):
         import pytesseract
         from PIL import Image
 

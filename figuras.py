@@ -8,9 +8,9 @@ from PIL import Image, ImageDraw
 from transcriptor.preprocesamiento import limpiar
 from transcriptor.segmentacion import segmentar_lineas
 
-CARPETA = Path("datos/figuras")
+FIGURAS = Path("datos/figuras")
 
-TEXTOS = {
+ETIQUETAS = {
     "es": {
         "x": "Fila de píxeles",
         "y": "Píxeles de tinta en la fila",
@@ -44,8 +44,8 @@ def primer_bloque(por_fila):
     return arriba, len(por_fila)
 
 
-def grafico_tinta(ruta, idioma):
-    textos = TEXTOS[idioma]
+def guardar_grafico_tinta(ruta, idioma):
+    etiquetas = ETIQUETAS[idioma]
     por_fila = tinta_por_fila(ruta)
     arriba, abajo = primer_bloque(por_fila)
     filas = list(range(arriba, abajo))
@@ -63,7 +63,7 @@ def grafico_tinta(ruta, idioma):
     figura, eje = plt.subplots(figsize=(8, 3.6), dpi=200)
     eje.bar(filas, valores, width=1.0, color=colores, linewidth=0)
     linea = eje.axhline(umbral, color="#c44e2b", linewidth=1.2, linestyle="--")
-    eje.legend([linea], [textos["umbral"]], loc="upper left", frameon=False)
+    eje.legend([linea], [etiquetas["umbral"]], loc="upper left", frameon=False)
     valle = []
     for k in range(len(valores)):
         if colores[k] == "#9a9a9a":
@@ -71,41 +71,41 @@ def grafico_tinta(ruta, idioma):
     if len(valle) > 0:
         centro = (valle[0] + valle[-1]) / 2
         eje.annotate(
-            textos["valle"],
+            etiquetas["valle"],
             xy=(centro, umbral * 0.8),
             xytext=(centro, valores.max() * 0.35),
             ha="center",
             arrowprops={"arrowstyle": "->"},
         )
-    eje.set_xlabel(textos["x"])
-    eje.set_ylabel(textos["y"])
+    eje.set_xlabel(etiquetas["x"])
+    eje.set_ylabel(etiquetas["y"])
     eje.spines["top"].set_visible(False)
     eje.spines["right"].set_visible(False)
     eje.grid(axis="y", color="#e5e5e5")
     eje.set_axisbelow(True)
     figura.tight_layout()
-    figura.savefig(CARPETA / textos["archivo"], facecolor="white")
+    figura.savefig(FIGURAS / etiquetas["archivo"], facecolor="white")
     plt.close(figura)
 
 
 # Remarca liena reconocida por segmentacion
-def grafico_segmentacion(ruta):
+def guardar_grafico_segmentacion(ruta):
     imagen = limpiar(Image.open(ruta)).convert("RGB")
     dibujo = ImageDraw.Draw(imagen)
     for caja in segmentar_lineas(imagen):
         dibujo.rectangle(caja, outline=(196, 78, 43), width=4)
-    imagen.save(CARPETA / "segmentacion-java.png")
+    imagen.save(FIGURAS / "segmentacion-java.png")
 
 
 def main():
     if len(sys.argv) < 3:
         print("Uso: python figuras.py <imagen_python> <imagen_java>")
         return
-    CARPETA.mkdir(parents=True, exist_ok=True)
-    grafico_tinta(sys.argv[1], "es")
-    grafico_tinta(sys.argv[1], "en")
-    grafico_segmentacion(sys.argv[2])
-    print(f"Figuras guardadas en: {CARPETA}")
+    FIGURAS.mkdir(parents=True, exist_ok=True)
+    guardar_grafico_tinta(sys.argv[1], "es")
+    guardar_grafico_tinta(sys.argv[1], "en")
+    guardar_grafico_segmentacion(sys.argv[2])
+    print(f"Figuras guardadas en: {FIGURAS}")
 
 
 if __name__ == "__main__":

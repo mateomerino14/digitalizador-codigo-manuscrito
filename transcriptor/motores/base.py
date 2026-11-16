@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from pathlib import Path
 
 
 class MotorHTR(ABC):
@@ -10,4 +9,4 @@ class MotorHTR(ABC):
     def disponible(self): ...
 
     @abstractmethod
-    def reconocer(self, ruta: Path): ...
+    def reconocer(self, ruta): ...
