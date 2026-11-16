@@ -57,7 +57,18 @@ class MotorPaddle(MotorHTR):
             _cargar_torch_primero()
             from paddleocr import PaddleOCR
 
+            """cls._ocr = PaddleOCR(
+                use_doc_orientation_classify=False,
+                use_doc_unwarping=False,
+                use_textline_orientation=False,
+                enable_mkldnn=False,
+            )"""
+            # Probando con el modelo small
             cls._ocr = PaddleOCR(
+                text_detection_model_name="PP-OCRv6_small_det",
+                text_recognition_model_name="PP-OCRv6_small_rec",
+                text_det_limit_type="max",
+                text_det_limit_side_len=960,
                 use_doc_orientation_classify=False,
                 use_doc_unwarping=False,
                 use_textline_orientation=False,
