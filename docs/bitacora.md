@@ -147,7 +147,6 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Commits:** Ninguno, actividad documental.
 - **Pendiente:** Imágenes y referencias de la prueba piloto.
 
-
 ## 15/11/2026: Script de figuras y uniformidad del código
 
 - **Actividad del cronograma:** Objetivo 3, actividad 2, "Programación de la lógica de transcripción" (planificada del 01/11/2026 al 14/11/2026).
@@ -164,3 +163,11 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Decisiones:** Se comprobó que el error solo ocurre cuando PaddlePaddle se carga antes que PyTorch. Se agregó al motor PaddleOCR una función que carga PyTorch primero, si está instalado, antes de cargar PaddlePaddle. Si PyTorch no está instalado, el motor funciona igual. Con el ajuste, PaddleOCR y TrOCR funcionan en el mismo entorno. PaddleOCR reconoció la imagen de Python en 15 segundos y TrOCR en 13.
 - **Commits:** `fix: carga torch antes que paddle para evitar conflicto de librerias en Windows`
 - **Pendiente:** Imágenes y referencias de la prueba piloto.
+
+## 15/11/2026: Dataset y script de la prueba piloto
+
+- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
+- **Qué se hizo:** Se buscó un conjunto de datos público de código manuscrito y se encontró el de Islam et al. (2024), con 55 imágenes de código Python escrito por estudiantes, el texto de referencia de cada una y la salida de Google Cloud Vision y Azure. Se eligieron 19 imágenes y se creó el script piloto.py, que ejecuta Tesseract, PaddleOCR y TrOCR sobre cada imagen, sin limpieza y con limpieza, y guarda el CER, el WER y el tiempo en un archivo CSV.
+- **Decisiones:** Se eligieron solo las imágenes que cumplen las condiciones de captura del prototipo, descartando las hojas rayadas, las fotos giradas o lejanas, las que tienen sombras fuertes o luz de color, y las que tienen texto impreso al reverso. Una imagen que venía girada según los datos de la cámara se guardó derecha. Antes de calcular las métricas se quitan la indentación y las líneas vacías, porque las herramientas HTR no devuelven la indentación, que la reconstruye después el corrector. Las salidas de Google y Azure del dataset se usan como referencia, ya que esos servicios no pudieron habilitarse. Como el dataset no tiene Java, las imágenes de Java se escribirán a mano.
+- **Commits:** `feat: agrega script de la prueba piloto`
+- **Pendiente:** Resultados de la prueba piloto e imágenes de Java.
