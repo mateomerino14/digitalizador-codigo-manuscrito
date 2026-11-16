@@ -8,6 +8,9 @@ from transcriptor import servicio
 
 MOTORES = {"tesseract": "Tesseract", "paddleocr": "PaddleOCR", "trocr": "TrOCR"}
 LENGUAJES = {"Python": "py", "Java": "java"}
+ESTILO = (
+    "<style>[data-testid='stFileUploaderDropzoneInstructions'] {display: none}</style>"
+)
 
 
 def motores_listos():
@@ -36,6 +39,7 @@ def posiciones(resultado):
 
 def mostrar_opciones():
     archivo = st.file_uploader("Imagen del código", type=["jpg", "jpeg", "png"])
+    st.caption("Formatos permitidos (JPG, PNG), hasta 20 MB")
     listos = motores_listos()
     motor = st.selectbox("Herramienta", listos, format_func=MOTORES.get)
     lenguaje = st.selectbox("Lenguaje", ["Python", "Java"])
@@ -94,6 +98,7 @@ def mostrar_pendiente(componente):
 
 def main():
     st.set_page_config(page_title="Digitalizador de código manuscrito", layout="wide")
+    st.markdown(ESTILO, unsafe_allow_html=True)
     st.title("Digitalizador de código manuscrito")
     reconocer, corregir, evaluar, historial = st.tabs(
         ["Reconocer", "Corregir", "Evaluar", "Historial"]
