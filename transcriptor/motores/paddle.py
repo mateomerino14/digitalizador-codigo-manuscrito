@@ -4,11 +4,20 @@ from comun.modelos import Linea, Resultado
 from transcriptor.motores.base import MotorHTR
 
 
+# Choque entre torch y paddle
+def _cargar_torch_primero():
+    try:
+        import torch  # noqa: F401
+    except ImportError:
+        pass
+
+
 class MotorPaddle(MotorHTR):
     nombre = "paddleocr"
     _ocr = None
 
     def disponible(self):
+        _cargar_torch_primero()
         try:
             import paddle  # noqa: F401
             import paddleocr  # noqa: F401
@@ -45,6 +54,7 @@ class MotorPaddle(MotorHTR):
     @classmethod
     def _cargar_modelo(cls):
         if cls._ocr is None:
+            _cargar_torch_primero()
             from paddleocr import PaddleOCR
 
             cls._ocr = PaddleOCR(
