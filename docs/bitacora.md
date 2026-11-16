@@ -147,14 +147,6 @@ Registro del avance del prototipo, relacionado con las actividades del cronogram
 - **Commits:** Ninguno, actividad documental.
 - **Pendiente:** Imágenes y referencias de la prueba piloto.
 
-## 15/11/2026: Conflicto entre PaddlePaddle y PyTorch
-
-- **Actividad del cronograma:** Objetivo 2, actividad 2, "Prueba piloto con imágenes de código manuscrito" (planificada del 25/10/2026 al 31/10/2026).
-- **Qué se hizo:** Al volver a ejecutar PaddleOCR después de instalar PyTorch para TrOCR, el motor dejó de funcionar.
-- **Problemas:** PaddleOCR carga la librería modelscope, que a su vez carga PyTorch. En Windows, cuando PaddlePaddle se carga primero, PyTorch falla al cargar sus librerías con el error `WinError 127` en `shm.dll`.
-- **Decisiones:** Pendiente de diagnóstico.
-- **Commits:** Ninguno.
-- **Pendiente:** Resolver el conflicto antes de ejecutar la prueba piloto.
 
 ## 15/11/2026: Script de figuras y uniformidad del código
 
